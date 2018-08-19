@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -6,12 +7,22 @@ const profile = require('./routes/api/profile');
 const users = require('./routes/api/users');
 
 
-
 const app = express();
 const port = process.env.PORT || 3000;
 
 
-// DB config
+// Body Parser middleware
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+app.use(bodyParser.json());
+
+
+
+
+
+
+// 2. DB config
 const db = require('./config/keys').mongoURI;
 
 // Connect to mongodb through mongoose
@@ -29,7 +40,7 @@ app.get('/', (req, res) => {
   res.send('Hello Vod!');
 });
 
-// Use routes
+// 3. Use routes
 app.use('/api/posts', posts);
 app.use('/api/profile', profile);
 app.use('/api/users', users);
