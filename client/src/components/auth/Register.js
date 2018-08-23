@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
+import TextFieldGroup from '../common/textFieldGroup';
 
 class Register extends Component {
   constructor(){
@@ -19,6 +19,12 @@ class Register extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+    if(this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+  }
+  
   componentWillReceiveProps(nextProps) {
     if(nextProps.errors) {
       this.setState({
@@ -61,56 +67,42 @@ class Register extends Component {
 
           <form noValidate onSubmit={this.onSubmit}>
 
-            <div className="form-group">
-              <input type="text" 
-              className={classnames('form-control form-control-lg', {'is-invalid': errors.name})}
-              placeholder="Name" 
-              value={this.state.name} 
-              name="name" 
-              onChange={this.onChange}
-               />
-               {errors.name && (<div className='invalid-feedback'>{errors.name}</div>)}
-            </div>
+          <TextFieldGroup 
+          placeholder="Name"
+          name='name'
+          value ={this.state.name}
+          onChange={this.onChange}
+          type='text'
+          errors={errors.name}
+          />
 
-            <div className="form-group">
-              <input 
-              type="email" 
-              className={classnames('form-control form-control-lg', {'is-invalid': errors.email})} 
-              placeholder="Email Address" 
-              value={this.state.email}
-              name="email" 
-              onChange={this.onChange}
-              />
-              {errors.email && (<div className='invalid-feedback'>{errors.email}</div>)}
-              <small 
-              className="form-text text-muted">
-              This site uses Gravatar so if you want a profile image, use a Gravatar email
-              </small>
-            </div>
+          <TextFieldGroup 
+          placeholder="Email"
+          name='email'
+          value ={this.state.email}
+          onChange={this.onChange}
+          type='email'
+          errors={errors.email}
+          info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
+          />
 
-            <div className="form-group">
-              <input 
-              type="password" 
-              className={classnames('form-control form-control-lg', {'is-invalid': errors.password})} 
-              placeholder="Password" 
-              value={this.state.password}
-              name="password"
-              onChange={this.onChange}
-               />
-               {errors.password && (<div className='invalid-feedback'>{errors.password}</div>)}
-            </div>
+          <TextFieldGroup 
+          placeholder="Password"
+          name='password'
+          value ={this.state.password}
+          onChange={this.onChange}
+          type='password'
+          errors={errors.password}
+          />
 
-            <div className="form-group">
-              <input 
-              type="password" 
-              className={classnames('form-control form-control-lg', {'is-invalid': errors.password2})} 
-              placeholder="Confirm Password" 
-              value={this.state.password2}
-              name="password2" 
-              onChange={this.onChange}
-              />
-              {errors.password2 && (<div className='invalid-feedback'>{errors.password2}</div>)}
-            </div>
+          <TextFieldGroup 
+          placeholder="Confirm Password"
+          name='password2'
+          value ={this.state.password2}
+          onChange={this.onChange}
+          type='password'
+          errors={errors.password2}
+          />
 
             <input 
             type="submit" 
@@ -124,7 +116,7 @@ class Register extends Component {
   };
 };
 
-Register.PropTypes = {
+Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
