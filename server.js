@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 
+
+
 const posts = require('./routes/api/posts');
 const profile = require('./routes/api/profile');
 const users = require('./routes/api/users');
@@ -17,6 +19,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(bodyParser.json());
+
 
 
 

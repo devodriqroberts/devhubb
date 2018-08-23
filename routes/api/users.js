@@ -23,7 +23,7 @@ router.get('/test', (req, res) =>
     "msg": "Users is working"
   }));
 
-// 5. @route   GET api/users/register
+// 5. @route  POST api/users/register
 // @desc    register user
 // @access  Public
 router.post('/register', (req, res) => {
