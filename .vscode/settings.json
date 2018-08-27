@@ -1,8 +1,11 @@
 {
   "git.ignoreLimitWarning": true,
   "cSpell.words": [
+    "creds",
     "expdata",
     "hubb",
-    "repo's"
+    "repo",
+    "repo's",
+    "repos"
   ]
 }
